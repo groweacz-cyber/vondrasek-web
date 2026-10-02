@@ -24,7 +24,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 // ===== Kontaktní formulář — odeslání přes Web3Forms (zdarma, bez vlastního backendu) =====
 // 1. Založ si zdarma účet na https://web3forms.com s e-mailem favondrasek@email.cz jako příjemcem.
 // 2. Zkopíruj přidělený Access Key a vlož ho sem místo placeholderu níže.
-const WEB3FORMS_ACCESS_KEY = 'VLOŽ_SEM_SVŮJ_WEB3FORMS_ACCESS_KEY';
+const WEB3FORMS_ACCESS_KEY = 'b302f35d-0b02-4080-abcc-4dfae7d0fb61';
 
 const form = document.getElementById('contactForm');
 const formNote = document.getElementById('formNote');
