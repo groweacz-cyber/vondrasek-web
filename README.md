@@ -1,7 +1,7 @@
 # Vondrášek s.r.o. — web
 
-Statický web (čisté HTML/CSS/JS, bez frameworku a bez buildu). Připraveno pro nasazení
-na Vercel, kód na GitHubu, doména u Forpsi — stejně jako growea.eu.
+Statický web (čisté HTML/CSS/JS, bez frameworku a bez buildu). Nasazeno na Vercel
+(automaticky po push na `main`), kód na GitHubu, doména **autodoprava-vondrasek.eu**.
 
 ## Struktura projektu
 
@@ -11,7 +11,7 @@ na Vercel, kód na GitHubu, doména u Forpsi — stejně jako growea.eu.
 ├── styles.css      → veškerý styl (dark + purple/blue gradient, Growea identita)
 ├── script.js       → mobilní menu, formulář, drobné interakce
 ├── vercel.json     → konfigurace nasazení (čisté URL)
-└── images/         → sem patří reálné fotky od Jardy (zatím prázdné, web zatím používá emoji ikony místo fotek)
+└── images/         → reálné fotky vozového parku, logo, favicon
 ```
 
 ## 1. Nahrání na GitHub
@@ -42,7 +42,7 @@ Každý další `git push` na `main` automaticky přenasadí novou verzi.
 
 **Ve Vercelu:**
 1. V projektu jdi do **Settings → Domains**.
-2. Zadej doménu (např. `vondrasek-doprava.cz`) a potvrď.
+2. Zadej doménu `autodoprava-vondrasek.eu` a potvrď.
 3. Vercel ti ukáže, jaké DNS záznamy potřebuješ nastavit (typicky A záznam pro
    holou doménu a CNAME pro `www`).
 
@@ -58,14 +58,13 @@ Každý další `git push` na `main` automaticky přenasadí novou verzi.
 
 - [x] **Telefon a e-mail** — `+420 731 484 581` / `favondrasek@email.cz`
 - [x] **Firemní údaje** — Autodoprava Vondrášek, s.r.o. · Jakubská 189, 377 01 Jindřichův Hradec · IČ 28112776
-- [ ] **Fotky** — auta, řidiči, provoz → nahradit SVG ilustraci v hero a fleet panelu reálnými fotkami (`images/`)
+- [x] **Fotky** — logo, kamion v hero a 4 vozidla v galerii „Náš vozový park" (`images/`)
+- [x] **Doména** — `autodoprava-vondrasek.eu`
 - [ ] **Reference** — teď neutrální placeholdery ("Výrobní firma · Brno") → doplnit
       skutečné firmy, se kterými Jarda smí být spojován
 - [ ] **Formulář** — teď jen simuluje odeslání (viz `script.js`). Potřebuje napojit
       na skutečné odeslání e-mailu — nejjednodušší je služba jako Formspree, Web3Forms,
       nebo vlastní jednoduchý endpoint (např. Vercel Serverless Function).
-- [ ] **Doména** — ověřit dostupnost `vondrasek-doprava.cz`, případně zvolit jinou
-      (doménu kupuje a hradí Growea).
 
 ## Poznámky k údržbě
 
