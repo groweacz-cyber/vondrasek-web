@@ -20,6 +20,7 @@
   --muted: #97A2B8;
   --dim: #666F82;
   --green: #10B981;
+  --red: #EF4444;
 
   /* Light panel (pro kontrastní "flotila" box, dle mockupu) */
   --light-bg: #F4F6FB;
@@ -323,7 +324,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   padding: 11px 14px; color: var(--white); font-family: var(--font-body); font-size: 14px; resize: vertical;
 }
 .form-row input:focus, .form-row textarea:focus { border-color: var(--purple); outline: none; }
-.form-note { font-size: 13px; color: var(--green); min-height: 18px; }
+.form-note { font-size: 13px; color: var(--muted); min-height: 18px; }
+.form-note.success { color: var(--green); }
+.form-note.error { color: var(--red); }
+
+/* Honeypot proti spamu — skryté mimo obrazovku, ne display:none (to by přeskočili i někteří boti) */
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 
 /* =========================================================
    FOOTER — 4 sloupce + zvýrazněná CTA karta

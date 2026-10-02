@@ -21,17 +21,55 @@ if (navToggle && mainNav) {
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// ===== Contact form (placeholder — no backend yet) =====
+// ===== Kontaktní formulář — odeslání přes Web3Forms (zdarma, bez vlastního backendu) =====
+// 1. Založ si zdarma účet na https://web3forms.com s e-mailem favondrasek@email.cz jako příjemcem.
+// 2. Zkopíruj přidělený Access Key a vlož ho sem místo placeholderu níže.
+const WEB3FORMS_ACCESS_KEY = 'VLOŽ_SEM_SVŮJ_WEB3FORMS_ACCESS_KEY';
+
 const form = document.getElementById('contactForm');
 const formNote = document.getElementById('formNote');
 
 if (form) {
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // TODO: napojit na skutečné odeslání (např. e-mail service, formspree, nebo vlastní API endpoint).
-    // Zatím jen potvrzení pro uživatele, ať formulář vypadá a chová se funkčně.
-    formNote.textContent = 'Díky! Ozveme se vám co nejdříve na uvedený kontakt.';
-    form.reset();
+    // Honeypot — pokud je vyplněný/zaškrtnutý, jde o bota, tiše ukonči (žádná odpověď botovi)
+    const honeypot = form.querySelector('[name="botcheck"]');
+    if (honeypot && honeypot.checked) return;
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn ? submitBtn.textContent : '';
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Odesílám…'; }
+    formNote.classList.remove('success', 'error');
+    formNote.textContent = 'Odesílám…';
+
+    const payload = {
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: 'Nová poptávka z webu Autodoprava Vondrášek',
+      from_name: 'Web Autodoprava Vondrášek, s.r.o.',
+      'Jméno a příjmení': form.querySelector('#f-name').value,
+      'Telefon nebo e-mail': form.querySelector('#f-contact').value,
+      'Trasa': form.querySelector('#f-route').value,
+      'Zpráva': form.querySelector('#f-message').value
+    };
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) throw new Error(data.message || 'Odeslání selhalo.');
+
+      formNote.classList.add('success');
+      formNote.textContent = 'Díky! Ozveme se vám co nejdříve na uvedený kontakt.';
+      form.reset();
+    } catch (err) {
+      formNote.classList.add('error');
+      formNote.textContent = 'Nepodařilo se odeslat poptávku. Zkuste to prosím znovu, nebo nám zavolejte na +420 731 484 581.';
+    } finally {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
+    }
   });
 }

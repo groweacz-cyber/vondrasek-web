@@ -62,9 +62,25 @@ Každý další `git push` na `main` automaticky přenasadí novou verzi.
 - [x] **Doména** — `autodoprava-vondrasek.eu`
 - [ ] **Reference** — teď neutrální placeholdery ("Výrobní firma · Brno") → doplnit
       skutečné firmy, se kterými Jarda smí být spojován
-- [ ] **Formulář** — teď jen simuluje odeslání (viz `script.js`). Potřebuje napojit
-      na skutečné odeslání e-mailu — nejjednodušší je služba jako Formspree, Web3Forms,
-      nebo vlastní jednoduchý endpoint (např. Vercel Serverless Function).
+- [ ] **Formulář — Web3Forms access key** — formulář je napojený na Web3Forms, ale
+      potřebuje skutečný klíč (viz sekce „Dokončení kontaktního formuláře" níže).
+
+## Dokončení kontaktního formuláře (Web3Forms)
+
+Formulář v `#kontakt` je napojený na [Web3Forms](https://web3forms.com) — zdarma, bez
+vlastního backendu. Zbývá jen:
+
+1. Jdi na https://web3forms.com a zadej e-mail **favondrasek@email.cz** — dostaneš
+   Access Key (buď hned na stránce, nebo e-mailem, podle aktuální podoby jejich formuláře).
+2. Otevři `script.js`, najdi na začátku souboru řádek:
+   ```js
+   const WEB3FORMS_ACCESS_KEY = 'VLOŽ_SEM_SVŮJ_WEB3FORMS_ACCESS_KEY';
+   ```
+   a nahraď placeholder skutečným klíčem.
+3. Commitni a pushni — hotovo, poptávky z formuláře budou chodit na favondrasek@email.cz.
+
+Formulář má i skryté pole `botcheck` (honeypot proti spamu) — nic s ním dělat nemusíš,
+funguje automaticky.
 
 ## Poznámky k údržbě
 
