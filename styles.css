@@ -40,6 +40,8 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+/* Zajistí, že [hidden] vždy skryje prvek i tam, kde komponenta nastavuje vlastní display (např. .footer-col a) */
+[hidden] { display: none !important; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

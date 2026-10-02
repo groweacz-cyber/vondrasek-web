@@ -60,10 +60,21 @@ Každý další `git push` na `main` automaticky přenasadí novou verzi.
 - [x] **Firemní údaje** — Autodoprava Vondrášek, s.r.o. · Jakubská 189, 377 01 Jindřichův Hradec · IČ 28112776
 - [x] **Fotky** — logo, kamion v hero a 4 vozidla v galerii „Náš vozový park" (`images/`)
 - [x] **Doména** — `autodoprava-vondrasek.eu`
-- [ ] **Reference** — teď neutrální placeholdery ("Výrobní firma · Brno") → doplnit
-      skutečné firmy, se kterými Jarda smí být spojován
+- [ ] **Reference** — sekce je teď schovaná (`hidden`) → viz „Jak zapnout sekci
+      Reference" níže, až budou k dispozici skutečné firmy.
 - [ ] **Formulář — Web3Forms access key** — formulář je napojený na Web3Forms, ale
       potřebuje skutečný klíč (viz sekce „Dokončení kontaktního formuláře" níže).
+
+## Jak zapnout sekci Reference
+
+Sekce „Důvěřují nám" je teď schovaná (atribut `hidden`), protože obsahuje jen
+neutrální placeholdery. Až budou k dispozici reálné firmy:
+
+1. V `index.html` najdi `<section class="trust-strip" id="reference" hidden>` a smaž `hidden`.
+2. O pár řádků výš (v hlavní navigaci) a v patičce (`footer-col` „Rychlé odkazy") najdi
+   `<a href="#reference" hidden>Reference</a>` (jsou tam dva) a smaž `hidden` i u nich.
+3. V sekci nahraď `.ref-chip` placeholdery (`Výrobní firma · Brno` apod.) skutečnými
+   názvy firem a smaž poznámku `.ref-note` („Reference budou doplněny…").
 
 ## Dokončení kontaktního formuláře (Web3Forms)
 
