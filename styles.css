@@ -145,14 +145,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .hero-lead { font-size: 16.5px; color: var(--ice); margin-bottom: 30px; max-width: 460px; }
 .hero-actions { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
-.play-link { display: flex; align-items: center; gap: 11px; font-size: 13px; color: var(--ice); cursor: pointer; }
-.play-link small { color: var(--dim); }
-.play-link .circ {
-  width: 38px; height: 38px; border: 1.5px solid var(--border-c); border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  transition: border-color 0.2s;
-}
-.play-link:hover .circ { border-color: var(--purple-light); }
 
 .hero-visual { display: flex; align-items: center; justify-content: center; }
 .hero-photo {

@@ -29,6 +29,19 @@ const WEB3FORMS_ACCESS_KEY = 'b302f35d-0b02-4080-abcc-4dfae7d0fb61';
 const form = document.getElementById('contactForm');
 const formNote = document.getElementById('formNote');
 
+// E-mail: obsahuje @ a tečku za ním
+function vypadaJakoEmail(value) {
+  const zavinac = value.indexOf('@');
+  if (zavinac === -1) return false;
+  return value.indexOf('.', zavinac) > zavinac;
+}
+
+// Telefon: aspoň 9 číslic po odstranění mezer, +, závorek a pomlček
+function vypadaJakoTelefon(value) {
+  const cislice = value.replace(/[\s+()-]/g, '').match(/\d/g) || [];
+  return cislice.length >= 9;
+}
+
 if (form) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -37,20 +50,51 @@ if (form) {
     const honeypot = form.querySelector('[name="botcheck"]');
     if (honeypot && honeypot.checked) return;
 
+    const nameField = form.querySelector('#f-name');
+    const contactField = form.querySelector('#f-contact');
+    const nameValue = nameField.value.trim();
+    const contactValue = contactField.value.trim();
+    const routeValue = form.querySelector('#f-route').value.trim();
+    const messageValue = form.querySelector('#f-message').value.trim();
+
+    nameField.removeAttribute('aria-invalid');
+    contactField.removeAttribute('aria-invalid');
+    formNote.classList.remove('success', 'error');
+
+    let invalidField = null;
+    let invalidMessage = '';
+    if (!nameValue) {
+      invalidField = nameField;
+      invalidMessage = 'Vyplňte prosím jméno.';
+    } else if (!contactValue) {
+      invalidField = contactField;
+      invalidMessage = 'Vyplňte prosím telefon nebo e-mail.';
+    } else if (!vypadaJakoEmail(contactValue) && !vypadaJakoTelefon(contactValue)) {
+      invalidField = contactField;
+      invalidMessage = 'Zadejte platný telefon nebo e-mail.';
+    }
+
+    if (invalidField) {
+      invalidField.setAttribute('aria-invalid', 'true');
+      formNote.classList.add('error');
+      formNote.textContent = invalidMessage;
+      invalidField.focus();
+      return;
+    }
+
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn ? submitBtn.textContent : '';
     if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Odesílám…'; }
-    formNote.classList.remove('success', 'error');
     formNote.textContent = 'Odesílám…';
 
     const payload = {
       access_key: WEB3FORMS_ACCESS_KEY,
       subject: 'Nová poptávka z webu Autodoprava Vondrášek',
       from_name: 'Web Autodoprava Vondrášek, s.r.o.',
-      'Jméno a příjmení': form.querySelector('#f-name').value,
-      'Telefon nebo e-mail': form.querySelector('#f-contact').value,
-      'Trasa': form.querySelector('#f-route').value,
-      'Zpráva': form.querySelector('#f-message').value
+      'Jméno a příjmení': nameValue,
+      'Telefon nebo e-mail': contactValue,
+      'Trasa': routeValue,
+      'Zpráva': messageValue
     };
 
     try {
