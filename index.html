@@ -1,8 +1,13 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="cs" class="no-js">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  document.documentElement.className = 'js';
+  // pojistka: kdyby se script.js nenačetl, obsah se po 4 s odkryje i bez animací
+  setTimeout(function () { if (!window.__ready) document.documentElement.classList.add('no-reveal'); }, 4000);
+</script>
 <title>Autodoprava Jindřichův Hradec — Vondrášek, s.r.o. | ČR i EU</title>
 <meta name="description" content="Autodoprava Vondrášek, s.r.o. z Jindřichova Hradce — spolehlivá vnitrostátní i mezinárodní nákladní doprava. Dodávky i kamiony, palety i celovozy. Nonstop dispečink.">
 
@@ -13,13 +18,21 @@
 <meta property="og:image" content="https://autodoprava-vondrasek.eu/images/hero-kamion.jpg">
 <meta property="og:locale" content="cs_CZ">
 <link rel="canonical" href="https://autodoprava-vondrasek.eu/">
-<meta name="theme-color" content="#0A0A0F">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#070a14">
 
-<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Fonty jsou hostované lokálně (rychlejší načtení, žádné požadavky na Google = GDPR bez starostí) -->
+<link rel="preload" href="fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/bricolage-grotesque-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/geist-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/avif" href="images/hero-kamion-1280.avif"
+      imagesrcset="images/hero-kamion-800.avif 800w, images/hero-kamion-1280.avif 1280w"
+      imagesizes="(min-width: 1000px) 640px, 92vw">
 <link rel="stylesheet" href="styles.css">
 
 <script type="application/ld+json">
@@ -28,6 +41,7 @@
   "@type": "LocalBusiness",
   "name": "Autodoprava Vondrášek, s.r.o.",
   "image": "https://autodoprava-vondrasek.eu/images/hero-kamion.jpg",
+  "logo": "https://autodoprava-vondrasek.eu/images/logo.png",
   "url": "https://autodoprava-vondrasek.eu/",
   "telephone": "+420731484581",
   "email": "favondrasek@email.cz",
@@ -45,17 +59,41 @@
 </head>
 <body>
 
-<a href="#main" class="skip-link">Přeskočit na obsah</a>
+<!-- ===== SVG sprite ikon (Lucide-style, stroke = currentColor) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="m7.5 4.27 9 5.15"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></symbol>
+    <symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-locate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-arrow-ur" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></symbol>
+  </defs>
+</svg>
 
-<!-- ===== HEADER ===== -->
+<a href="#main" class="skip-link">Přeskočit na obsah</a>
+<div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+<!-- ===== HEADER (plovoucí "island" navigace) ===== -->
 <header class="site-header" id="header">
-  <div class="wrap header-inner">
-    <a href="#home" class="brand">
-      <img src="images/logo.png" alt="Autodoprava Vondrášek, s.r.o." class="brand-logo">
+  <div class="nav-island">
+    <a href="#home" class="brand" aria-label="Autodoprava Vondrášek, s.r.o. — úvod">
+      <img src="images/logo-light.png" alt="Autodoprava Vondrášek, s.r.o." class="brand-logo" width="460" height="156">
     </a>
 
     <nav class="main-nav" id="main-nav" aria-label="Hlavní navigace">
-      <a href="#home" class="active">Domů</a>
+      <a href="#home" aria-current="location">Domů</a>
       <a href="#sluzby">Služby</a>
       <a href="#flotila">Flotila</a>
       <a href="#reference" hidden>Reference</a>
@@ -65,11 +103,12 @@
 
     <div class="header-cta">
       <a href="tel:+420731484581" class="header-phone">
-        <span class="ph-ic" aria-hidden="true">📞</span>
-        <span><span class="ph-num">+420 731 484 581</span><small>Nonstop 24/7</small></span>
+        <span class="ph-ic" aria-hidden="true"><svg class="icon"><use href="#i-phone"/></svg></span>
+        <span class="ph-text"><span class="ph-num">+420 731 484 581</span><small>Nonstop 24/7</small></span>
       </a>
+      <a href="#kontakt" class="btn btn-primary btn-sm header-btn"><span class="btn-label">Získat nabídku</span></a>
       <button class="nav-toggle" id="navToggle" aria-label="Otevřít menu" aria-expanded="false" aria-controls="main-nav">
-        <span></span><span></span><span></span>
+        <span></span><span></span>
       </button>
     </div>
   </div>
@@ -77,121 +116,218 @@
 
 <main id="main">
 
-  <!-- ===== HERO (dvousloupcové: text vlevo, ilustrace vpravo) ===== -->
-  <section class="hero" id="home">
-    <div class="hero-bg" aria-hidden="true"></div>
-    <div class="wrap hero-grid">
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home" aria-labelledby="hero-title">
+    <div class="hero-bg" aria-hidden="true">
+      <span class="aurora aurora-a"></span>
+      <span class="aurora aurora-b"></span>
+      <span class="aurora aurora-c"></span>
+      <span class="hero-lines"></span>
+    </div>
 
-      <div class="hero-content">
-        <h1>Autodoprava Jindřichův Hradec<br><span class="accent">Vaše zboží, naše odpovědnost.</span></h1>
-        <p class="hero-lead">Profesionální vnitrostátní i mezinárodní autodoprava po celé ČR i Evropě. Bezpečně, rychle a spolehlivě.</p>
-        <div class="hero-actions">
-          <a href="#kontakt" class="btn btn-primary">🚚&nbsp;&nbsp;Získat nabídku&nbsp;→</a>
+    <div class="wrap hero-layout">
+      <div class="hero-copy">
+        <p class="status-pill hero-in" style="--i:0"><span class="pulse" aria-hidden="true"></span>Nonstop dispečink 24/7</p>
+        <h1 id="hero-title" class="hero-in" style="--i:1"><span class="h1-top">Autodoprava Jindřichův Hradec</span> <span class="accent">Vaše zboží,<br class="br-d"> naše odpovědnost.</span></h1>
+        <p class="hero-lead hero-in" style="--i:2">Profesionální vnitrostátní i mezinárodní autodoprava po celé ČR i Evropě. Bezpečně, rychle a spolehlivě.</p>
+        <div class="hero-actions hero-in" style="--i:3">
+          <a href="#kontakt" class="btn btn-primary btn-lg"><span class="btn-label">Získat nabídku</span><span class="btn-arrow" aria-hidden="true"><svg class="icon"><use href="#i-arrow"/></svg></span></a>
+          <a href="tel:+420731484581" class="btn btn-glass btn-lg"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><span class="btn-label">+420 731 484 581</span></a>
         </div>
       </div>
 
       <div class="hero-visual">
-        <img src="images/hero-kamion.jpg" alt="Kamion DAF XF s návěsem Autodoprava Vondrášek, s.r.o." class="hero-photo" width="1600" height="900">
+        <div class="hero-frame" data-tilt>
+          <picture>
+            <source type="image/avif" srcset="images/hero-kamion-800.avif 800w, images/hero-kamion-1280.avif 1280w" sizes="(min-width: 1000px) 640px, 92vw">
+            <source type="image/webp" srcset="images/hero-kamion-800.webp 800w, images/hero-kamion-1280.webp 1280w" sizes="(min-width: 1000px) 640px, 92vw">
+            <img src="images/hero-kamion.jpg" alt="Kamion DAF XF s návěsem Autodoprava Vondrášek, s.r.o." class="hero-photo" width="1600" height="900" fetchpriority="high" decoding="async">
+          </picture>
+          <span class="frame-corner fc-tl" aria-hidden="true"></span>
+          <span class="frame-corner fc-tr" aria-hidden="true"></span>
+          <span class="frame-corner fc-bl" aria-hidden="true"></span>
+          <span class="frame-corner fc-br" aria-hidden="true"></span>
+          <div class="chip chip-a"><span class="chip-ic" aria-hidden="true"><svg class="icon"><use href="#i-shield"/></svg></span><span>CMR pojištění</span></div>
+          <div class="chip chip-b"><span class="chip-ic" aria-hidden="true"><svg class="icon"><use href="#i-globe"/></svg></span><span>8 zemí EU</span></div>
+        </div>
       </div>
-
     </div>
+
+    <span class="road" aria-hidden="true"></span>
   </section>
 
-  <!-- ===== SLUŽBY + FLOTILA (kombinovaný řádek dle vizuálu) ===== -->
-  <section class="section services-row" id="sluzby">
-    <div class="wrap">
-      <p class="section-eyebrow">Služby</p>
-      <h2 class="section-title">Komplexní autodoprava po ČR i Evropě</h2>
+  <!-- ===== MARQUEE ===== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="marquee-group">
+        <span class="marquee-item">Vnitrostátní doprava</span>
+        <span class="marquee-item">Mezinárodní doprava (EU)</span>
+        <span class="marquee-item">Paletové zásilky</span>
+        <span class="marquee-item">CMR pojištění</span>
+        <span class="marquee-item">Sledování zásilek</span>
+        <span class="marquee-item">Flexibilní kapacita</span>
+        <span class="marquee-item">Nonstop dispečink</span>
+      </div>
+      <div class="marquee-group">
+        <span class="marquee-item">Vnitrostátní doprava</span>
+        <span class="marquee-item">Mezinárodní doprava (EU)</span>
+        <span class="marquee-item">Paletové zásilky</span>
+        <span class="marquee-item">CMR pojištění</span>
+        <span class="marquee-item">Sledování zásilek</span>
+        <span class="marquee-item">Flexibilní kapacita</span>
+        <span class="marquee-item">Nonstop dispečink</span>
+      </div>
     </div>
-    <div class="wrap combo-grid">
+  </div>
 
-      <div class="svc-cards">
-        <article class="card">
-          <div class="card-icon" aria-hidden="true">📍</div>
-          <h3>Vnitrostátní doprava</h3>
-          <p>Rychlé a spolehlivé přepravy po celé ČR.</p>
-          <span class="card-arrow" aria-hidden="true">→</span>
-        </article>
-        <article class="card">
-          <div class="card-icon" aria-hidden="true">🌍</div>
+  <!-- ===== SLUŽBY (bento) ===== -->
+  <section class="section services" id="sluzby" aria-labelledby="sluzby-title">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <p class="eyebrow">Služby</p>
+        <h2 class="section-title" id="sluzby-title">Komplexní autodoprava po ČR i Evropě</h2>
+      </header>
+
+      <div class="bento">
+
+        <article class="tile tile-eu reveal" data-spotlight style="--d:0">
+          <span class="icon-badge" aria-hidden="true"><svg class="icon"><use href="#i-globe"/></svg></span>
           <h3>Mezinárodní doprava (EU)</h3>
           <p>Každý den přepravujeme po celé Evropě.</p>
-          <span class="card-arrow" aria-hidden="true">→</span>
+          <div class="net" aria-hidden="true">
+            <svg viewBox="0 0 560 420" fill="none" focusable="false">
+              <defs>
+                <linearGradient id="netg" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#a78bfa"/><stop offset=".55" stop-color="#60a5fa"/><stop offset="1" stop-color="#67e8f9"/>
+                </linearGradient>
+                <radialGradient id="nodeglow">
+                  <stop offset="0" stop-color="#8b9cff" stop-opacity=".85"/><stop offset="1" stop-color="#8b9cff" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <g class="net-lines" stroke="url(#netg)" stroke-width="1.4" stroke-linecap="round">
+                <path id="r1" d="M120 322 C 170 268, 240 250, 308 252"/>
+                <path id="r2" d="M120 322 C 220 392, 340 392, 428 332"/>
+                <path id="r3" d="M308 252 C 368 232, 448 242, 506 196"/>
+                <path id="r4" d="M428 332 C 472 304, 504 260, 506 196"/>
+                <path id="r5" d="M308 252 C 318 206, 340 170, 372 140"/>
+                <path id="r6" d="M372 140 C 420 116, 480 126, 506 196"/>
+                <path id="r7" d="M506 196 C 524 160, 530 130, 520 96"/>
+              </g>
+              <g class="packets">
+                <circle r="3.2" fill="#fff"><animateMotion dur="5.2s" repeatCount="indefinite" begin="0s"><mpath href="#r1"/></animateMotion></circle>
+                <circle r="3.2" fill="#fff"><animateMotion dur="6.4s" repeatCount="indefinite" begin="1.2s"><mpath href="#r2"/></animateMotion></circle>
+                <circle r="3.2" fill="#fff"><animateMotion dur="5.6s" repeatCount="indefinite" begin="2.6s"><mpath href="#r3"/></animateMotion></circle>
+                <circle r="3.2" fill="#fff"><animateMotion dur="5.0s" repeatCount="indefinite" begin="0.6s"><mpath href="#r4"/></animateMotion></circle>
+                <circle r="3.2" fill="#fff"><animateMotion dur="4.6s" repeatCount="indefinite" begin="3.4s"><mpath href="#r5"/></animateMotion></circle>
+                <circle r="3.2" fill="#fff"><animateMotion dur="5.8s" repeatCount="indefinite" begin="1.8s"><mpath href="#r6"/></animateMotion></circle>
+              </g>
+              <g class="net-nodes">
+                <circle cx="120" cy="322" r="26" fill="url(#nodeglow)"/>
+                <circle class="ring" cx="120" cy="322" r="9" stroke="#a78bfa" stroke-width="1.2"/>
+                <circle cx="120" cy="322" r="5.5" fill="#fff"/>
+                <circle cx="308" cy="252" r="14" fill="url(#nodeglow)"/><circle cx="308" cy="252" r="3.6" fill="#c7d2fe"/>
+                <circle cx="428" cy="332" r="14" fill="url(#nodeglow)"/><circle cx="428" cy="332" r="3.6" fill="#c7d2fe"/>
+                <circle cx="506" cy="196" r="16" fill="url(#nodeglow)"/><circle cx="506" cy="196" r="4.2" fill="#c7d2fe"/>
+                <circle cx="372" cy="140" r="14" fill="url(#nodeglow)"/><circle cx="372" cy="140" r="3.6" fill="#c7d2fe"/>
+                <circle cx="520" cy="96" r="12" fill="url(#nodeglow)"/><circle cx="520" cy="96" r="3.2" fill="#c7d2fe"/>
+              </g>
+            </svg>
+            <span class="net-label">Jindřichův Hradec</span>
+          </div>
         </article>
-        <article class="card">
-          <div class="card-icon" aria-hidden="true">📦</div>
+
+        <article class="tile tile-cz reveal" data-spotlight style="--d:1">
+          <span class="icon-badge" aria-hidden="true"><svg class="icon"><use href="#i-pin"/></svg></span>
+          <h3>Vnitrostátní doprava</h3>
+          <p>Rychlé a spolehlivé přepravy po celé ČR.</p>
+          <span class="radar" aria-hidden="true"><i></i><i></i><i></i></span>
+        </article>
+
+        <article class="tile tile-pallet reveal" data-spotlight style="--d:2">
+          <span class="icon-badge" aria-hidden="true"><svg class="icon"><use href="#i-box"/></svg></span>
           <h3>Paletové zásilky</h3>
           <p>LTL / FTL · Skladování · Distribuce.</p>
-          <span class="card-arrow" aria-hidden="true">→</span>
+          <ul class="tags" aria-hidden="true"><li>LTL</li><li>FTL</li><li>Skladování</li><li>Distribuce</li></ul>
         </article>
-      </div>
 
-      <aside class="fleet-panel">
-        <h3>Moderní a spolehlivá flotila</h3>
-        <div class="fleet-stats">
-          <div class="fs-item"><span class="fs-ic" aria-hidden="true">🚚</span><div><strong>30+</strong><span>vozidel</span></div></div>
-          <div class="fs-item"><span class="fs-ic" aria-hidden="true">📍</span><div><strong>8</strong><span>zemí EU</span></div></div>
-          <div class="fs-item"><span class="fs-ic" aria-hidden="true">🕐</span><div><strong>24/7</strong><span>dispečink</span></div></div>
+        <div class="tile tile-stats reveal" style="--d:3">
+          <h3>Moderní a spolehlivá flotila</h3>
+          <div class="stat-row">
+            <div class="stat"><strong><span class="count" data-count="30" data-suffix="+">30+</span></strong><span>vozidel</span></div>
+            <div class="stat"><strong><span class="count" data-count="8">8</span></strong><span>zemí EU</span></div>
+            <div class="stat"><strong>24/7</strong><span>dispečink</span></div>
+          </div>
         </div>
-        <div class="fleet-visual" aria-hidden="true">
-          <svg viewBox="0 0 300 110" xmlns="http://www.w3.org/2000/svg">
-            <g transform="translate(0,15)">
-              <rect x="0" y="15" width="80" height="45" rx="6" fill="#334155"/>
-              <path d="M80 15 h22 a8 8 0 0 1 8 8 v25 a8 8 0 0 1-8 8 h-22z" fill="#1E293B"/>
-              <circle cx="20" cy="64" r="9" fill="#0F172A"/>
-              <circle cx="70" cy="64" r="9" fill="#0F172A"/>
-            </g>
-            <g transform="translate(105,20)">
-              <rect x="0" y="10" width="85" height="42" rx="6" fill="#475569"/>
-              <path d="M85 10 h20 a8 8 0 0 1 8 8 v18 a8 8 0 0 1-8 8 h-20z" fill="#1E293B"/>
-              <circle cx="22" cy="58" r="9" fill="#0F172A"/>
-              <circle cx="75" cy="58" r="9" fill="#0F172A"/>
-            </g>
-            <g transform="translate(215,25)">
-              <rect x="0" y="8" width="65" height="36" rx="6" fill="#7C3AED" opacity="0.85"/>
-              <path d="M65 8 h16 a7 7 0 0 1 7 7 v14 a7 7 0 0 1-7 7 h-16z" fill="#1E293B"/>
-              <circle cx="16" cy="48" r="8" fill="#0F172A"/>
-              <circle cx="62" cy="48" r="8" fill="#0F172A"/>
-            </g>
-          </svg>
+
+        <div class="tile tile-feature reveal" data-spotlight style="--d:0">
+          <span class="icon-badge sm" aria-hidden="true"><svg class="icon"><use href="#i-shield"/></svg></span>
+          <h3>CMR pojištění</h3>
+          <p>Odpovědnost dopravce kryta po celou dobu přepravy</p>
         </div>
-      </aside>
+        <div class="tile tile-feature reveal" data-spotlight style="--d:1">
+          <span class="icon-badge sm" aria-hidden="true"><svg class="icon"><use href="#i-locate"/></svg></span>
+          <h3>Sledování zásilek</h3>
+          <p>Přehled o tom, kde se vaše zboží právě nachází</p>
+        </div>
+        <div class="tile tile-feature reveal" data-spotlight style="--d:2">
+          <span class="icon-badge sm" aria-hidden="true"><svg class="icon"><use href="#i-layers"/></svg></span>
+          <h3>Flexibilní kapacita</h3>
+          <p>Od jedné palety po celý kamion</p>
+        </div>
 
-    </div>
-
-    <div class="wrap">
-      <div class="feature-strip">
-        <div class="feature-item"><strong>CMR pojištění</strong><span>Odpovědnost dopravce kryta po celou dobu přepravy</span></div>
-        <div class="feature-item"><strong>Sledování zásilek</strong><span>Přehled o tom, kde se vaše zboží právě nachází</span></div>
-        <div class="feature-item"><strong>Flexibilní kapacita</strong><span>Od jedné palety po celý kamion</span></div>
       </div>
     </div>
   </section>
 
-  <!-- ===== NÁŠ VOZOVÝ PARK ===== -->
-  <section class="section fleet-gallery" id="flotila">
+  <!-- ===== NÁŠ VOZOVÝ PARK (horizontální rail) ===== -->
+  <section class="section fleet" id="flotila" aria-labelledby="flotila-title">
     <div class="wrap">
-      <p class="section-eyebrow">Flotila</p>
-      <h2 class="section-title">Náš vozový park</h2>
-      <p class="section-lead">Moderní a pravidelně udržovaná vozidla — od dodávek po těžké soupravy. Pro každou zakázku vybereme to pravé auto.</p>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="images/flotila-1.jpg" alt="Nákladní vozidlo DAF LF Autodoprava Vondrášek, s.r.o." loading="lazy" width="900" height="405">
-          <figcaption>DAF LF — skříňová nástavba</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="images/flotila-2.jpg" alt="Dodávka Ford Transit Custom Autodoprava Vondrášek, s.r.o." loading="lazy" width="900" height="405">
-          <figcaption>Ford Transit Custom</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="images/flotila-3.jpg" alt="Dodávka s firemním polepem Autodoprava Vondrášek, s.r.o." loading="lazy" width="900" height="405">
-          <figcaption>Ford Courier — menší zásilky</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="images/flotila-4.jpg" alt="Skříňová dodávka Autodoprava Vondrášek, s.r.o. v průmyslovém areálu" loading="lazy" width="900" height="405">
-          <figcaption>Ford Transit — skříňová dodávka</figcaption>
-        </figure>
-      </div>
+      <header class="section-head split reveal">
+        <div>
+          <p class="eyebrow">Flotila</p>
+          <h2 class="section-title" id="flotila-title">Náš vozový park</h2>
+          <p class="section-lead">Moderní a pravidelně udržovaná vozidla — od dodávek po těžké soupravy. Pro každou zakázku vybereme to pravé auto.</p>
+        </div>
+        <div class="rail-controls" aria-hidden="true">
+          <button type="button" class="round-btn" data-rail="prev" tabindex="-1"><svg class="icon"><use href="#i-chev-l"/></svg></button>
+          <button type="button" class="round-btn" data-rail="next" tabindex="-1"><svg class="icon"><use href="#i-chev-r"/></svg></button>
+        </div>
+      </header>
+    </div>
+
+    <div class="rail" tabindex="0" role="region" aria-label="Galerie vozového parku">
+      <figure class="rail-card">
+        <picture>
+          <source type="image/avif" srcset="images/flotila-1-700.avif 700w, images/flotila-1-1200.avif 1200w" sizes="(min-width: 700px) 860px, 100vw">
+          <source type="image/webp" srcset="images/flotila-1-700.webp 700w, images/flotila-1-1200.webp 1200w" sizes="(min-width: 700px) 860px, 100vw">
+          <img src="images/flotila-1.jpg" alt="Nákladní vozidlo DAF LF Autodoprava Vondrášek, s.r.o." loading="lazy" decoding="async" width="900" height="405">
+        </picture>
+        <figcaption><span class="idx">01</span><span class="cap">DAF LF — skříňová nástavba</span></figcaption>
+      </figure>
+      <figure class="rail-card">
+        <picture>
+          <source type="image/avif" srcset="images/flotila-2-700.avif 700w, images/flotila-2-1200.avif 1200w" sizes="(min-width: 700px) 860px, 100vw">
+          <source type="image/webp" srcset="images/flotila-2-700.webp 700w, images/flotila-2-1200.webp 1200w" sizes="(min-width: 700px) 860px, 100vw">
+          <img src="images/flotila-2.jpg" alt="Dodávka Ford Transit Custom Autodoprava Vondrášek, s.r.o." loading="lazy" decoding="async" width="900" height="405">
+        </picture>
+        <figcaption><span class="idx">02</span><span class="cap">Ford Transit Custom</span></figcaption>
+      </figure>
+      <figure class="rail-card">
+        <picture>
+          <source type="image/avif" srcset="images/flotila-3-700.avif 700w, images/flotila-3-1200.avif 1200w" sizes="(min-width: 700px) 860px, 100vw">
+          <source type="image/webp" srcset="images/flotila-3-700.webp 700w, images/flotila-3-1200.webp 1200w" sizes="(min-width: 700px) 860px, 100vw">
+          <img src="images/flotila-3.jpg" alt="Dodávka s firemním polepem Autodoprava Vondrášek, s.r.o." loading="lazy" decoding="async" width="900" height="405">
+        </picture>
+        <figcaption><span class="idx">03</span><span class="cap">Ford Courier — menší zásilky</span></figcaption>
+      </figure>
+      <figure class="rail-card">
+        <picture>
+          <source type="image/avif" srcset="images/flotila-4-700.avif 700w, images/flotila-4-1200.avif 1200w" sizes="(min-width: 700px) 860px, 100vw">
+          <source type="image/webp" srcset="images/flotila-4-700.webp 700w, images/flotila-4-1200.webp 1200w" sizes="(min-width: 700px) 860px, 100vw">
+          <img src="images/flotila-4.jpg" alt="Skříňová dodávka Autodoprava Vondrášek, s.r.o. v průmyslovém areálu" loading="lazy" decoding="async" width="900" height="405" class="pos-right">
+        </picture>
+        <figcaption><span class="idx">04</span><span class="cap">Ford Transit — skříňová dodávka</span></figcaption>
+      </figure>
     </div>
   </section>
 
@@ -212,86 +348,98 @@
   </section>
 
   <!-- ===== NÁBOR ŘIDIČŮ ===== -->
-  <section class="recruit" id="kariera">
-    <div class="wrap recruit-inner">
-      <div class="recruit-text">
-        <span class="badge">Nábor</span>
-        <h2>Hledáme řidiče skupiny&nbsp;C</h2>
-        <p>Férové podmínky, moderní vozový park, pravidelné trasy po ČR i EU. Přidejte se k týmu, na který se dá spolehnout.</p>
-        <ul class="recruit-list">
-          <li>Profesní průkaz a karta řidiče</li>
-          <li>Praxe v nákladní dopravě výhodou</li>
-          <li>Nástup možný ihned</li>
-        </ul>
-      </div>
-      <div class="recruit-cta">
-        <a href="#kontakt" class="btn btn-primary">Chci se přidat</a>
+  <section class="recruit" id="kariera" aria-labelledby="kariera-title">
+    <div class="wrap">
+      <div class="recruit-card reveal">
+        <div class="recruit-text">
+          <span class="badge">Nábor</span>
+          <h2 id="kariera-title">Hledáme řidiče skupiny&nbsp;C</h2>
+          <p>Férové podmínky, moderní vozový park, pravidelné trasy po ČR i EU. Přidejte se k týmu, na který se dá spolehnout.</p>
+          <ul class="recruit-list">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Profesní průkaz a karta řidiče</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Praxe v nákladní dopravě výhodou</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Nástup možný ihned</li>
+          </ul>
+          <a href="#kontakt" class="btn btn-primary btn-lg"><span class="btn-label">Chci se přidat</span><span class="btn-arrow" aria-hidden="true"><svg class="icon"><use href="#i-arrow"/></svg></span></a>
+        </div>
+        <div class="recruit-media" aria-hidden="true">
+          <picture>
+            <source type="image/avif" srcset="images/flotila-1-700.avif 700w, images/flotila-1-1200.avif 1200w" sizes="(min-width: 900px) 520px, 100vw">
+            <source type="image/webp" srcset="images/flotila-1-700.webp 700w, images/flotila-1-1200.webp 1200w" sizes="(min-width: 900px) 520px, 100vw">
+            <img src="images/flotila-1.jpg" alt="" loading="lazy" decoding="async" width="900" height="405">
+          </picture>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ===== KONTAKT ===== -->
-  <section class="section" id="kontakt">
-    <div class="wrap">
-      <p class="section-eyebrow">Kontakt</p>
-      <h2 class="section-title">Poptejte přepravu</h2>
-      <p class="section-lead">Ozvěte se nám telefonicky, e-mailem, nebo vyplňte formulář — ozveme se vám co nejdříve s nezávaznou nabídkou.</p>
+  <section class="section contact" id="kontakt" aria-labelledby="kontakt-title">
+    <div class="wrap contact-grid">
+      <div class="contact-side">
+        <header class="section-head reveal">
+          <p class="eyebrow">Kontakt</p>
+          <h2 class="section-title" id="kontakt-title">Poptejte přepravu</h2>
+          <p class="section-lead">Ozvěte se nám telefonicky, e-mailem, nebo vyplňte formulář — ozveme se vám co nejdříve s nezávaznou nabídkou.</p>
+        </header>
 
-      <div class="contact-grid">
-        <div class="contact-info">
-          <div class="contact-row">
-            <span class="ci-icon" aria-hidden="true">📞</span>
-            <div><strong>+420 731 484 581</strong><span>Nonstop dispečink</span></div>
-          </div>
-          <div class="contact-row">
-            <span class="ci-icon" aria-hidden="true">✉️</span>
-            <div><strong>favondrasek@email.cz</strong><span>Odpovíme do 24 hodin</span></div>
-          </div>
-          <div class="contact-row">
-            <span class="ci-icon" aria-hidden="true">📍</span>
-            <div><strong>Jakubská 189, 377 01 Jindřichův Hradec</strong><span>Sídlo společnosti</span></div>
-          </div>
+        <div class="contact-info reveal" style="--d:1">
+          <a class="contact-card" href="tel:+420731484581" data-spotlight>
+            <span class="icon-badge sm" aria-hidden="true"><svg class="icon"><use href="#i-phone"/></svg></span>
+            <span class="cc-text"><strong>+420 731 484 581</strong><small>Nonstop dispečink</small></span>
+            <svg class="icon go" aria-hidden="true"><use href="#i-arrow-ur"/></svg>
+          </a>
+          <a class="contact-card" href="mailto:favondrasek@email.cz" data-spotlight>
+            <span class="icon-badge sm" aria-hidden="true"><svg class="icon"><use href="#i-mail"/></svg></span>
+            <span class="cc-text"><strong>favondrasek@email.cz</strong><small>Odpovíme do 24 hodin</small></span>
+            <svg class="icon go" aria-hidden="true"><use href="#i-arrow-ur"/></svg>
+          </a>
+          <a class="contact-card" href="https://www.google.com/maps/search/?api=1&amp;query=Jakubsk%C3%A1+189%2C+377+01+Jind%C5%99ich%C5%AFv+Hradec" target="_blank" rel="noopener" data-spotlight>
+            <span class="icon-badge sm" aria-hidden="true"><svg class="icon"><use href="#i-pin"/></svg></span>
+            <span class="cc-text"><strong>Jakubská 189, 377 01 Jindřichův Hradec</strong><small>Sídlo společnosti</small></span>
+            <svg class="icon go" aria-hidden="true"><use href="#i-arrow-ur"/></svg>
+          </a>
         </div>
-
-        <form class="contact-form" id="contactForm" novalidate>
-          <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <div class="form-row">
-            <label for="f-name">Jméno a příjmení</label>
-            <input type="text" id="f-name" name="name" required autocomplete="name">
-          </div>
-          <div class="form-row">
-            <label for="f-contact">Telefon nebo e-mail</label>
-            <input type="text" id="f-contact" name="contact" required autocomplete="email">
-          </div>
-          <div class="form-row">
-            <label for="f-route">Trasa (odkud → kam)</label>
-            <input type="text" id="f-route" name="route" placeholder="např. Praha → Mnichov">
-          </div>
-          <div class="form-row">
-            <label for="f-message">Zpráva</label>
-            <textarea id="f-message" name="message" rows="4" placeholder="Popište prosím zásilku — počet palet, termín, typ nákladu…"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary btn-block">Odeslat poptávku</button>
-          <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
-        </form>
       </div>
+
+      <form class="contact-form reveal" id="contactForm" novalidate style="--d:2">
+        <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="form-row">
+          <label for="f-name">Jméno a příjmení</label>
+          <input type="text" id="f-name" name="name" required autocomplete="name">
+        </div>
+        <div class="form-row">
+          <label for="f-contact">Telefon nebo e-mail</label>
+          <input type="text" id="f-contact" name="contact" required autocomplete="email">
+        </div>
+        <div class="form-row">
+          <label for="f-route">Trasa (odkud → kam)</label>
+          <input type="text" id="f-route" name="route" placeholder="např. Praha → Mnichov">
+        </div>
+        <div class="form-row">
+          <label for="f-message">Zpráva</label>
+          <textarea id="f-message" name="message" rows="4" placeholder="Popište prosím zásilku — počet palet, termín, typ nákladu…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block"><span class="btn-label">Odeslat poptávku</span><span class="btn-arrow" aria-hidden="true"><svg class="icon"><use href="#i-send"/></svg></span></button>
+        <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </section>
 
 </main>
 
-<!-- ===== FOOTER (4 sloupce + zvýrazněná CTA karta) ===== -->
+<!-- ===== FOOTER ===== -->
 <footer class="site-footer">
   <div class="wrap footer-grid">
     <div class="footer-brand">
       <div class="brand">
-        <img src="images/logo.png" alt="Autodoprava Vondrášek, s.r.o." class="brand-logo">
+        <img src="images/logo-light.png" alt="Autodoprava Vondrášek, s.r.o." class="brand-logo" width="460" height="156" loading="lazy">
       </div>
       <p>Jsme česká dopravní společnost s důrazem na spolehlivost, kvalitu a férové jednání.</p>
     </div>
 
     <div class="footer-col">
-      <h4>Rychlé odkazy</h4>
+      <h3>Rychlé odkazy</h3>
       <a href="#home">Domů</a>
       <a href="#sluzby">Služby</a>
       <a href="#flotila">Flotila</a>
@@ -299,27 +447,29 @@
     </div>
 
     <div class="footer-col">
-      <h4>Kontakt</h4>
-      <a href="tel:+420731484581">📞 +420 731 484 581</a>
-      <a href="mailto:favondrasek@email.cz">✉️ favondrasek@email.cz</a>
-      <span>📍 Jakubská 189, 377 01 Jindřichův Hradec</span>
+      <h3>Kontakt</h3>
+      <a href="tel:+420731484581">+420 731 484 581</a>
+      <a href="mailto:favondrasek@email.cz">favondrasek@email.cz</a>
+      <span>Jakubská 189, 377 01 Jindřichův Hradec</span>
       <span>IČ: 28112776</span>
     </div>
 
     <div class="footer-col">
-      <h4>Nonstop dispečink</h4>
+      <h3>Nonstop dispečink</h3>
       <div class="footer-nonstop">
-        <span class="fn-ic" aria-hidden="true">🎧</span>
+        <span class="fn-ic" aria-hidden="true"><svg class="icon"><use href="#i-headset"/></svg></span>
         <div><strong>24/7</strong><span>Jsme tu pro vás každý den</span></div>
       </div>
     </div>
 
     <div class="footer-cta">
-      <h4>Potřebujete přepravu?</h4>
+      <h3>Potřebujete přepravu?</h3>
       <p>Ozvěte se nám a připravíme vám nezávaznou nabídku.</p>
-      <a href="#kontakt" class="btn btn-primary btn-block">Získat nabídku&nbsp;→</a>
+      <a href="#kontakt" class="btn btn-dark btn-block"><span class="btn-label">Získat nabídku</span><span class="btn-arrow" aria-hidden="true"><svg class="icon"><use href="#i-arrow"/></svg></span></a>
     </div>
   </div>
+
+  <div class="footer-wordmark" aria-hidden="true">VONDRÁŠEK</div>
 
   <div class="wrap footer-bottom">
     <span>© <span id="year"></span> Autodoprava Vondrášek, s.r.o. · IČ: 28112776 · Všechna práva vyhrazena.</span>
@@ -327,6 +477,6 @@
   </div>
 </footer>
 
-<script src="script.js"></script>
+<script src="script.js" defer></script>
 </body>
 </html>
